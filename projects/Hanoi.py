@@ -96,23 +96,26 @@ def get_input():
         for i in range(len(stacks)):
             name = stacks[i].get_name()
             letter = choices[i]
-            print("Enter {0} for {1}".format(letter, name))
+            print("Press {letter} for {name}".format(letter=letter, name=name))
 
         user_input = input("")
 
         if user_input in choices:
             for i in range(len(stacks)):
-                return stacks[i]
+                if user_input == choices[i]:
+                    return stacks[i]
+        else:
+            print("Invalid choice, please pick from below list:\n")
 
 
 # Play the Game
 num_user_moves = 0
 
-print("\n\n\n...Current Stacks...")
-for stack in stacks:
-    stack.print_items()
-
 while right_stack.get_size() != num_disks:
+    print("\n\n\n...Current Stacks...")
+
+    for stack in stacks:
+        stack.print_items()
 
     while True:
 
@@ -127,9 +130,9 @@ while right_stack.get_size() != num_disks:
             disk = from_stack.pop()
             to_stack.push(disk)
             num_user_moves += 1
-            break
         else:
             print("\n\nInvalid entry. Try again.")
+        break
 
 
 print("\n\nYou completed the game in {0} moves, and the optimal number of moves is {1}".format(num_user_moves, num_optimal_moves))
